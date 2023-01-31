@@ -88,7 +88,9 @@ class StringServer extends Handler {
 
 ### Adding the first string:
 
-![First Screenshot](https://github.com/tristanmcooper/LabReport2/blob/f3981b691ed128d9b724a908dc7a468bd505cab0/LabReport2%20First%20StringServer%20SCREENSHOT.png)
+![First](/firstSC.png)
+
+<!--![First Screenshot](https://github.com/tristanmcooper/LabReport2/blob/f3981b691ed128d9b724a908dc7a468bd505cab0/LabReport2%20First%20StringServer%20SCREENSHOT.png)-->
 This first screenshot shows me entering the following request into the URL: 
 
 `add-message?s=This is my first String!` 
@@ -105,15 +107,15 @@ This first screenshot shows me entering the following request into the URL:
 
 ### Let's try adding another string!
 
-![Second](/Users/tristancooper/Desktop/CSE 15L/LabReport2/2nd Screenshot showing URL entry (spaces).png)
-![Second Screenshot](https://github.com/tristanmcooper/LabReport2/blob/f3981b691ed128d9b724a908dc7a468bd505cab0/2nd%20Screenshot%20showing%20URL%20entry%20(spaces).png)
+![Second](secondSC.png)
+<!-- ![Second Screenshot](https://github.com/tristanmcooper/LabReport2/blob/f3981b691ed128d9b724a908dc7a468bd505cab0/2nd%20Screenshot%20showing%20URL%20entry%20(spaces).png) -->
 
 In this screenshot, I've included the actual input that I entered into the URL, so that the `%20` characters representing spaces in the next image make sense.
 
 <div align="center"> Now I press enter: </div> 
 
-
-![Third Screenshot](https://github.com/tristanmcooper/LabReport2/blob/f3981b691ed128d9b724a908dc7a468bd505cab0/3rd%20SC%20result%20after%20second%20message.png)
+![Third](thirdSC.png)
+<!-- ![Third Screenshot](https://github.com/tristanmcooper/LabReport2/blob/f3981b691ed128d9b724a908dc7a468bd505cab0/3rd%20SC%20result%20after%20second%20message.png) -->
 
 - __Walkthrough of example one__
 
@@ -128,7 +130,82 @@ In this screenshot, I've included the actual input that I entered into the URL, 
 ### __To Recap:__ In *both* examples:
 - The value of `URI url`, `String s`, `parameters`,`singleString`, and `printedArray`are changed.
 
-## Part 1: Lab 3 Bugs
+## Part 2: Lab 3 Bugs
+### __Bug in `ArrayExamples.java`__ `reversed()`
+
+- __*Failure-inducing* input:__
+```java
+  @Test
+  public void testReversedFail() {
+    int[] input2 = {1,2,3,4,5};
+    assertArrayEquals(new int[] {5,4,3,2,1}, ArrayExamples.reversed(input2));
+  }
+```
+- __Input that *doesn't* induce failure:__
+
+```java
+  @Test
+  public void testReversedNonFail() {
+    int[] input1 = {0,0,0};
+    assertArrayEquals(new int[]{0,0,0}, ArrayExamples.reversed(input1));
+  }
+```
+
+- __Symptoms:__
+### <div align="center"> Failing Test Symptom: </div>
+
+![failing screenshot](firstfailsc.png)
+![failing terminal sc](termfail1.png) 
+![fail term](termfailnew.png)
+
+### <div align="center"> Passing Test Symptom: </div>
+
+![passing sc](passTerm.png)
+
+
+> Note: I imported `java.util.Arrays` to print symptoms in the terminal, as a passing JUnit test shows no visual to go off of.
+
+- __CODE CORRECTION__
+```java
+//Return a *new* array with all the elements of the input array in reversed order
+```
+
+```java
+// BEFORE: Buggy Code
+  static int[] reversed(int[] arr) {
+    int[] newArray = new int[arr.length];
+    for(int i = 0; i < arr.length; i += 1) {
+      arr[i] = newArray[arr.length - i - 1];
+    }
+    return arr;
+  }
+```
+
+```java
+// AFTER: Fixed Code
+  static int[] reversed(int[] arr) {
+    int[] newArray = new int[arr.length];
+    for(int i = 0; i < arr.length; i += 1) {
+      newArray[i] = arr[arr.length - i - 1];
+    }
+    return newArray;
+  }
+```
+### __Why does this fix address the issue?__
+
+In the original method, both assignment and return were flawed. The method created a new array, `newArray`, and assigned the *empty* values in that array to the argument array, `arr`, effectively wiping out all of the original data during iteration.
+After that, the method returns the original array instead of the new one.
+
+__So what's the fix?__
+The corrected code also creates a new array, `newArray`. But this time, it assigns the values in the argument array, `arr` to `newArray` in reverse order. After the for loop, the method properly returns the `newArray`.
+
+
+## Part 3: What Did I Learn?
+
+I think learning how to __create and host a web server__, either locally or on UCSD's server was the most exciting and possibly more useful skill I learned in the last two weeks.
+Being able to apply my previous Java knowledge to something more practical like URLs opens up a ton of opportunities that I otherwise wouldn't have had before, and potentially a step towards doing Web Development.
+
+# That's it! Thank you for reading my Lab Report!
 
 
 
