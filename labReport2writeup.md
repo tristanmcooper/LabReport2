@@ -104,6 +104,8 @@ This first screenshot shows me entering the following request into the URL:
 
 
 ### Let's try adding another string!
+
+![Second](/Users/tristancooper/Desktop/CSE 15L/LabReport2/2nd Screenshot showing URL entry (spaces).png)
 ![Second Screenshot](https://github.com/tristanmcooper/LabReport2/blob/f3981b691ed128d9b724a908dc7a468bd505cab0/2nd%20Screenshot%20showing%20URL%20entry%20(spaces).png)
 
 In this screenshot, I've included the actual input that I entered into the URL, so that the `%20` characters representing spaces in the next image make sense.
